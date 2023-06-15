@@ -8,31 +8,36 @@ Generally would follow this documentation (https://opencv.github.io/cvat/docs/ad
 
 In the CVAT directory, run:
 
-1. ```
+1. Stop all containers first, if any.
+
+	```
 	docker compose down
 	```
-	Stop all containers first, if any.
-
-1. ```
+ 
+1. Start CVAT together with the plugin use for AI automatic annotation assistant.
+	
+	```
 	docker compose -f docker-compose.yml -f components serverless/docker-compose.serverless.yml up -d
 	```
-	Start CVAT together with the plugin use for AI automatic annotation assistant.
-
-1. ```
+1. Install `nuctl`*
+   
+	```
 	wget https://github.com/nuclio/nuclio/releases/download/<version>/nuctl-<version>-linux-amd64
 	```
-	Install `nuctl`.*
+	
 
-1. ```
+1. After downloading the nuclio, give it a proper permission and do a softlink.*
+   
+	```
 	sudo chmod +x nuctl-<version>-linux-amd64
 	sudo ln -sf $(pwd)/nuctl-<version>-linux-amd64 /usr/local/bin/nuctl
 	```
-	After downloading the nuclio, give it a proper permission and do a softlink.*
+	
 
-1. ```
+1. Build the docker image and run the container. After it is done, you can use the model right away in the CVAT.
+	```
 	./serverless/deploy_cpu.sh path/to/this/folder/
 	```
-	This will build the docker image and run the container. After it is done, you can use the model right away in the CVAT.
 
 Note: * is a one time step.
 
