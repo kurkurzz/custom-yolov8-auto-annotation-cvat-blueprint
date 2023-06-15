@@ -5,6 +5,7 @@ metadata:
     name: custom-model-yolov8
     type: detector
     framework: pytorch
+    # change this accordingly to your model output/classes
     spec: |
       [
         {"id": 0, "name": "tench"},
