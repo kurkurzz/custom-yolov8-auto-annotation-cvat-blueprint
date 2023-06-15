@@ -2,7 +2,7 @@
 
 ![screenshot](screenshot.png)
 
-## Run
+## Installation (Linux Ubuntu)
 
 Generally would follow this documentation (https://opencv.github.io/cvat/docs/administration/advanced/installation_automatic_annotation/)
 
