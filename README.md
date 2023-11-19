@@ -17,7 +17,7 @@ In the CVAT directory, run:
 1. Start CVAT together with the plugin use for AI automatic annotation assistant.
 	
 	```
-	docker compose -f docker-compose.yml -f components serverless/docker-compose.serverless.yml up -d
+	docker compose -f docker-compose.yml -f components/serverless/docker-compose.serverless.yml up -d
 	```
 1. Install `nuctl`*
    
