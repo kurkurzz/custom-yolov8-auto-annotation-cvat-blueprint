@@ -19,6 +19,11 @@ In the CVAT directory, run:
 	```
 	docker compose -f docker-compose.yml -f components/serverless/docker-compose.serverless.yml up -d
 	```
+1. Create an account
+	```
+	docker exec -it cvat_server bash -ic 'python3 ~/manage.py createsuperuser'
+	```
+
 1. Install `nuctl`*
    
 	```
