@@ -44,13 +44,28 @@ In the CVAT directory, run:
 	./serverless/deploy_cpu.sh path/to/this/folder/
 	```
 
+1. Troubleshooting
+   - Check that your `nuclio` function is running correctly   
+     `docker ps --filter NAME=custom-model-yolov8`:
+     ```
+     CONTAINER ID   IMAGE                        COMMAND       CREATED          STATUS                    PORTS                                         NAMES
+     3dc54494bbb8   custom-model-yolov8:latest   "processor"   52 minutes ago   Up 52 minutes (healthy)   0.0.0.0:32896->8080/tcp, :::32896->8080/tcp   nuclio-nuclio-custom-model-yolov8
+     ```
+   - If it is not running check the container's log, it might reveal what is going wrong:   
+     `docker logs 3dc54494bbb8` (CONTAINER ID)
+     ```
+     ...
+     24.01.31 12:28:35.522                 processor (D) Processor started
+     24.01.31 12:29:27.171 sor.http.w0.python.logger (I) Run custom-model-yolov8 model {"worker_id": "0"}
+     ```
+   
 Note: * is a one time step.
 
 ## File Structure
 
-- `function.yaml`: Declare the model so it can be understand by CVAT. It includes setup the docker environment.
+- [`function.yaml`](function.yaml): Declare the model so it can be understand by CVAT. It includes setup the docker environment.
 
-- `main.py`: Contain the handle function that will serve as the endpoint used by CVAT to run detection.
+- [`main.py`](main.py): Contain the handle function that will serve as the endpoint used by CVAT to run detection.
 
 - `custom-yolov8n.pt`: Your custom yolov8 model.
 

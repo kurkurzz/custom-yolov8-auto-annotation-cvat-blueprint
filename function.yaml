@@ -37,8 +37,12 @@ spec:
           value: apt-get -y install libgl1-mesa-glx libglib2.0-dev
         - kind: WORKDIR
           value: /opt/nuclio
+          #
+          # make sure that for the next step (at least) the ultralytics package version
+          # is compatible to that of the the ultralytics package used to train the custom model
         - kind: RUN
           value: pip3 install ultralytics==8.0.114 opencv-python==4.7.0.72 numpy==1.24.3
+          #
         - kind: RUN
           value: ln -s /usr/bin/pip3 /usr/local/bin/pip
         - kind: RUN
