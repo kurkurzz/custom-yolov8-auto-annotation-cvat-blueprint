@@ -1,0 +1,64 @@
+metadata:
+  name: custom-model-yolov8
+  namespace: cvat
+  annotations:
+    name: custom-model-yolov8
+    type: detector
+    framework: pytorch
+    # change this accordingly to your model output/classes
+    spec: |
+      [
+        {"id": 0, "name": "tench"},
+        {"id": 1, "name": "goldfish"},
+        .
+        .
+        .
+        .
+        {"id": 998, "name": "ear"},
+        {"id": 999, "name": "toilet paper"}
+      ]
+
+spec:
+  description: custom-model-yolov8
+  runtime: 'python:3.9'
+  handler: main:handler
+  eventTimeout: 30s
+
+  build:
+    image: custom-model-yolov8
+    baseImage: ubuntu:22.04
+
+    directives:
+      preCopy:
+        - kind: ENV
+          value: DEBIAN_FRONTEND=noninteractive
+        - kind: USER
+          value: root
+        - kind: RUN
+          value: apt-get update && apt-get -y install curl git python3 python3-pip libgl1-mesa-glx libglib2.0-dev
+        - kind: WORKDIR
+          value: /opt/nuclio
+          #
+          # make sure that for the next step (at least) the ultralytics package version
+          # is compatible to that of the the ultralytics package used to train the custom model
+        - kind: RUN
+          value: pip3 install --no-cache-dir ultralytics==8.0.114 opencv-python==4.7.0.72 numpy==1.24.3
+        - kind: RUN
+          value: ln -s /usr/bin/pip3 /usr/local/bin/pip
+        - kind: RUN
+          value: ln -s /usr/bin/python3 /usr/local/bin/python
+
+  triggers:
+    myHttpTrigger:
+      maxWorkers: 2
+      kind: 'http'
+      workerAvailabilityTimeoutMilliseconds: 10000
+      attributes:
+        maxRequestBodySize: 33554432 # 32MB
+
+  platform:
+    attributes:
+      restartPolicy:
+        name: always
+        maximumRetryCount: 3
+      mountMode: volume
