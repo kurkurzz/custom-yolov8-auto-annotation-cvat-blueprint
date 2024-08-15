@@ -58,6 +58,7 @@ In the CVAT directory, run:
      24.01.31 12:28:35.522                 processor (D) Processor started
      24.01.31 12:29:27.171 sor.http.w0.python.logger (I) Run custom-model-yolov8 model {"worker_id": "0"}
      ```
+   - If installing on WSL2, you should update the ".wslconfig" file WLS2 to allow WSL at least 6 GB RAM. Put the .wslconfig file in the C:\/Users\/\<username\> folder. If DOCKER crashes frequently or auto annotation fails immediately after starting, it is probably because of low RAM. Use the alternative function if the installation fails (worked for CVAT-2.16.2 installation in WSL2, with 6 GB allowed to WSL2).
    
 Note: * is a one time step.
 
